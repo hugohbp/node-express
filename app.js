@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+
 var usersRouter = require('./routes/users');
 var homeRouter = require('./routes/home');
 var contatosRouter = require('./routes/contatos');
@@ -19,6 +19,13 @@ var routers = require('./routes');
 var app = express();
 
 var session = require('express-session');
+
+var socket_io = require('socket.io');
+
+//socket.io
+var io = socket_io();
+app.io = io;
+var indexRouter = require('./routes/index')(io);
 
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({

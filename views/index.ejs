@@ -1,7 +1,20 @@
 <% include ./header %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script>
+  var socket = io('http://localhost:3000');
+  socket.on('toClient', function (msg) {
+    var chat = document.getElementById('chat');
+    chat.innerHTML += msg;
+  });
+  var enviar = function () {
+    var msg = document.getElementById('msg');
+    socket.emit('toServer', msg.value);
+  };
+</script>
 <header>
   <h1>Ntalk</h1>
   <h4>Bem-vindo!</h4>
+
 </header>
 <section>
   <form enctype='application/json' action='/entrar' method='post'>
